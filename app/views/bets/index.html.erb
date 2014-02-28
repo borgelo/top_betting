@@ -1,30 +1,39 @@
-<h1>Listing bets</h1>
+	<table class="table table-condensed">
+		<thead>
+			<tr><th>Navn</th><th>Poeng</th></thr>
+		</thead>
+		<% @users.each do |user| %>
+		<tbody>
+			<tr><td><%= user.name %></td><td><%= user.points %></td></tr>
+		</tbody>
+		<% end %>
+	</table>
 
-<table>
-  <thead>
-    <tr>
-      <th>Person</th>
-      <th>League</th>
-      <th>Position</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @bets.each do |bet| %>
+	<% @users.each do |user| %>
+	
+	
+	<table class="table table-condensed">
+		<thead>
+			<tr>
+				<th align="left" colspan=3><%= user.name %></th>
+			</tr>
+		</thead>
+	<tbody>
+    <% user.bets.each do |bet| %>
       <tr>
-        <td><%= bet.user %></td>
-        <td><%= bet.league %></td>
-        <td><%= bet.position %></td>
-        <td><%= link_to 'Show', bet %></td>
-        <td><%= link_to 'Edit', edit_bet_path(bet) %></td>
-        <td><%= link_to 'Destroy', bet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		<td><%= bet.position %>.</td>
+        <td><%= bet.league.name %></td>
+		<td><%= bet.points %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+	<tr>
+		<th>Sum</th>
+		<th>&nbsp;</th>
+		<th><%= user.points %></th>
+	</tr>
+	</tbody>
+	</table>
+	<% end %>
 
 <br>
 

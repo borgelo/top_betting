@@ -13,11 +13,12 @@
 
   <div class="field">
     <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
+	<%= collection_select(:bet, :user_id, User.order('name ASC').all, :id, :name, {:class => 'selectpicker', :include_blank => '-- Velg bruker --'}) %>
   </div>
   <div class="field">
-    <%= f.label :league_id %><br>
-    <%= f.text_field :league_id %>
+	<%= f.label :league_id %><br>
+	<%= collection_select(:bet, :league_id, League.order('name ASC').all, :id, :name, {:class => 'selectpicker', :include_blank => '-- Velg lag --'}) %>  
+
   </div>
   <div class="field">
     <%= f.label :position %><br>

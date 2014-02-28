@@ -4,7 +4,21 @@ class BetsController < ApplicationController
   # GET /bets
   # GET /bets.json
   def index
-    @bets = Bet.all
+    @users = User.all    
+    for user in @users do
+      user.points = 0
+      for bet in user.bets do
+        if (bet.position == bet.league.position)
+          user.points = user.points += 3
+          bet.points = 3
+        elsif (bet.league.isTop(6))
+          user.points += 1
+          bet.points = 1
+        else
+          bet.points = 0
+        end
+      end
+    end    
   end
 
   # GET /bets/1
