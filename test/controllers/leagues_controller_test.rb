@@ -2,7 +2,7 @@ require 'test_helper'
 
 class LeaguesControllerTest < ActionController::TestCase
   setup do
-    @league = leagues(:one)
+    @league = leagues(:liverpool)
   end
 
   test "should get index" do

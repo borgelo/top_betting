@@ -3,12 +3,13 @@ require 'test_helper'
 class BetsControllerTest < ActionController::TestCase
   setup do
     @bet = bets(:one)
+    @users = users(:one)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:bets)
+    assert_not_nil assigns(:users)
   end
 
   test "should get new" do
@@ -18,7 +19,7 @@ class BetsControllerTest < ActionController::TestCase
 
   test "should create bet" do
     assert_difference('Bet.count') do
-      post :create, bet: { league_id: @bet.league_id, person_id: @bet.person_id, position: @bet.position }
+      post :create, bet: { league_id: @bet.league_id, user_id: @bet.user_id, position: @bet.position }
     end
 
     assert_redirected_to bet_path(assigns(:bet))
@@ -35,7 +36,7 @@ class BetsControllerTest < ActionController::TestCase
   end
 
   test "should update bet" do
-    patch :update, id: @bet, bet: { league_id: @bet.league_id, person_id: @bet.person_id, position: @bet.position }
+    patch :update, id: @bet, bet: { league_id: @bet.league_id, user_id: @bet.user_id, position: @bet.position }
     assert_redirected_to bet_path(assigns(:bet))
   end
 

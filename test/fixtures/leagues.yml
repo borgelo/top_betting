@@ -1,9 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+liverpool:
+  id: 1
+  name: Liverpool
   position: 1
 
-two:
-  name: MyString
-  position: 1
+tottenham:
+  id: 2
+  name: Tottenham
+  position: 2
+  
+swansea:
+  id: 3
+  name: Swansea
+  position: 6
+
+manu:
+  id: 4
+  name: Manchester United
+  position: 7
+  
+
+  
+

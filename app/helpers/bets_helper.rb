@@ -1,2 +1,2 @@
-module BetsHelper
+module BetsHelper  
 end

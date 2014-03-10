@@ -1,29 +1,9 @@
-<h1>Listing leagues</h1>
+<h1>Tabell</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Position</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
 
-  <tbody>
     <% @leagues.each do |league| %>
-      <tr>
-        <td><%= league.name %></td>
-        <td><%= league.position %></td>
-        <td><%= link_to 'Show', league %></td>
-        <td><%= link_to 'Edit', edit_league_path(league) %></td>
-        <td><%= link_to 'Destroy', league, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+		<%= league.position %>. <%= league.name %><br/>
     <% end %>
-  </tbody>
-</table>
+
 
 <br>
-
-<%= link_to 'New League', new_league_path %>
