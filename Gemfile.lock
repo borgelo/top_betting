@@ -127,7 +127,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   nokogiri
-  pg (= 0.12.2)
+  pg
   rails (= 4.0.2)
   rails_12factor (= 0.0.2)
   sass-rails (~> 4.0.0)
