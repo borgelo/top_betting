@@ -1,14 +1,18 @@
 	<div class="row">
 		<div class="span3">
 		</div>
-		<div class="span3 well">
+		<div class="span6 well lead">
 			<table class="table table-condensed table-hover">
 				<thead>
-					<tr><th>Navn</th><th>Poeng</th></thr>
+					<tr><th>Navn</th><th>&nbsp;</th><th>Poeng</th></thr>
 				</thead>
 				<% @users.each do |user| %>
 					<tbody>
-						<tr><td><%= user.name %></td><td><%= user.points %></td></tr>
+						<tr>
+							<td class="lead"><%= user.name %></td>
+							<td>&nbsp;</td>
+							<td class="lead"><%= user.points %></td>
+						</tr>
 					</tbody>
 				<% end %>
 			</table>
@@ -20,7 +24,7 @@
 	<div class="row">
 		<div class="span3">
 		</div>
-		<div class="span3 well">
+		<div class="span6 well lead">
 			<table class="table table-condensed table-hover">
 				<thead>
 					<tr>
@@ -30,15 +34,15 @@
 				<tbody>
 				<% user.bets.each do |bet| %>
 					<tr>
-						<td><%= bet.position %>.</td>
-						<td><%= bet.league.name %></td>
-						<td><%= bet.points %></td>
+						<td class="lead"><%= bet.position %>.</td>
+						<td class="lead"><%= bet.league.name %></td>
+						<td class="lead"><%= bet.points %></td>
 					</tr>
 				<% end %>
 					<tr>
-						<th>Sum</th>
-						<th>&nbsp;</th>
-						<th><%= user.points %></th>
+						<th class="lead">Sum</th>
+						<th class="lead">&nbsp;</th>
+						<th class="lead"><%= user.points %></th>
 					</tr>
 				</tbody>
 			</table>
