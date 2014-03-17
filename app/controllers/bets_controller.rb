@@ -6,7 +6,10 @@ class BetsController < ApplicationController
   # GET /bets
   # GET /bets.json
   def index
-    update_teams
+
+    if is_long_time_since_update
+      update_teams
+    end
     @users = User.all
     for user in @users do
       user.points = 0
@@ -31,7 +34,7 @@ class BetsController < ApplicationController
       position = team.at_xpath('position').content
       @league = League.find_by_name(name)
       if(@league)
-        @league.position = position
+        @league.position = position    
         @league.save
       end
     end
@@ -100,5 +103,12 @@ class BetsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def bet_params
       params.require(:bet).permit(:user_id, :league_id, :position)
+    end
+    
+    def is_long_time_since_update
+      now = DateTime.now
+      latest_update = League.first.updated_at
+      distance_in_hour = ((now.to_i - latest_update.to_i).abs) / 3600
+      distance_in_hour > 1
     end
 end

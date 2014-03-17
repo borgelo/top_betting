@@ -3,13 +3,31 @@ require 'test_helper'
 class BetsControllerTest < ActionController::TestCase
   setup do
     @bet = bets(:one)
-    @users = users(:one)
+    @user = users(:one)
+    @league = leagues(:liverpool)
   end
 
   test "should get index" do
     get :index
     assert_response :success
     assert_not_nil assigns(:users)
+  end
+  
+  test "should not update leagues when updated less than 1 hour ago" do
+    @liverpool_before = League.first
+    get :index
+    @liverpool_after = League.first
+    assert_equal(@liverpool_before.updated_at, @liverpool_after.updated_at)
+  end
+  
+  test "should update leagues when updated more than 1 hour ago" do
+    League.record_timestamps=false
+    League.first.update_attributes(:updated_at => 2.hours.ago)
+    League.record_timestamps=true
+    @liverpool_before = League.first
+    get :index
+    @liverpool_after = League.first
+    assert_not_equal(@liverpool_before.updated_at, @liverpool_after.updated_at)
   end
 
   test "should get new" do
