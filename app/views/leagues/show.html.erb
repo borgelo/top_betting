@@ -10,5 +10,34 @@
   <%= @league.position %>
 </p>
 
+  <p>
+	<strong>Played:</strong>
+    <%= @league.played %>
+  </p>
+  <p>
+	<strong>Won:</strong>
+    <%= @league.win %>
+  </p>
+  <p>
+	<strong>Drawn:</strong>
+    <%= @league.drawn %>
+  </p>
+  <p>
+	<strong>Lost:</strong>
+    <%= @league.lost %>
+  </p>
+  <p>
+	<strong>Against:</strong>
+    <%= @league.against %>
+  </p>
+  <p>
+	<strong>Goal difference:</strong>
+    <%= @league.goal_difference %>
+  </p>
+  <p>
+	<strong>Points:</strong>
+    <%= @league.points %>
+  </p>
+
 <%= link_to 'Edit', edit_league_path(@league) %> |
 <%= link_to 'Back', leagues_path %>

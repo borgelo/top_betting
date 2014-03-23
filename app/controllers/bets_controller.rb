@@ -28,17 +28,30 @@ class BetsController < ApplicationController
   end
   
   def update_teams
-    doc = Nokogiri::XML(open('http://www.footballwebpages.co.uk/league.xml?comp=1'))
+    doc = Nokogiri::XML(open('http://www.footballwebpages.co.uk/league.xml?comp=1'))  
+    #doc = Nokogiri::XML(open('league.xml'))
     doc.xpath('//team').each do |team|
       name = team.at_xpath('name').content
-      position = team.at_xpath('position').content
       @league = League.find_by_name(name)
+      
       if(@league)
-        @league.position = position    
+        @league.position = team.at_xpath('position').content
+        puts "team: " + name  
+        puts "position" + @league.position.to_s
+        @league.played = team.at_xpath('played').content
+        puts "played" + @league.played.to_s
+        @league.win = team.at_xpath('won').content
+        @league.drawn = team.at_xpath('drawn').content
+        @league.lost = team.at_xpath('lost').content
+        @league.for = team.at_xpath('for').content
+        @league.against = team.at_xpath('against').content
+        @league.goal_difference = team.at_xpath('goalDifference').content
+        @league.points = team.at_xpath('points').content
         @league.save
       end
     end
   end
+    
 
   # GET /bets/1
   # GET /bets/1.json

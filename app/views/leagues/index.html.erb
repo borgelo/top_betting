@@ -1,9 +1,43 @@
-<h1>Tabell</h1>
-
-
-    <% @leagues.each do |league| %>
-		<%= league.position %>. <%= league.name %><br/>
-    <% end %>
-
-
+	<div class="row">
+		<div class="span1">
+		</div>
+		<div class="span2">
+			<h4><%= link_to 'Resultat', bets_path %></h4>
+			<h4>Tabell</h4>
+		</div>
+		<div class="span6 well lead">
+			<table class="table table-condensed table-hover">
+				<thead>
+					<tr>
+						<th></th>
+						<th align="left">Lag</th>
+						<th>P</th>
+						<th>W</th>
+						<th>D</th>
+						<th>L</th>
+						<th>F</th>
+						<th>A</th>
+						<th>GD</th>
+						<th>Pts</th>
+					</tr>
+				</thead>
+				<tbody>					
+    		<% @leagues.each do |league| %>
+					<tr>
+						<td><%= league.position %></td>
+					 	<td><%= league.name %></td>
+						<td><%= league.played %></td>
+						<td><%= league.win %></td>
+						<td><%= league.drawn %></td>
+						<td><%= league.lost %></td>
+						<td><%= league.for %></td>
+						<td><%= league.against %></td>
+						<td><%= league.goal_difference %></td>
+						<td><%= league.points %></td>
+					</tr>
+    		<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
 <br>
