@@ -36,10 +36,7 @@ class BetsController < ApplicationController
       
       if(@league)
         @league.position = team.at_xpath('position').content
-        puts "team: " + name  
-        puts "position" + @league.position.to_s
         @league.played = team.at_xpath('played').content
-        puts "played" + @league.played.to_s
         @league.win = team.at_xpath('won').content
         @league.drawn = team.at_xpath('drawn').content
         @league.lost = team.at_xpath('lost').content
