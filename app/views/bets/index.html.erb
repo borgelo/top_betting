@@ -10,7 +10,7 @@
 				<thead>
 					<tr><th>Navn</th><th>&nbsp;</th><th>Poeng</th></thr>
 				</thead>
-				<% @users.each do |user| %>
+				<% @users_sorted.each do |user| %>
 					<tbody>
 						<tr>
 							<td class="lead"><%= user.name %></td>
@@ -23,7 +23,7 @@
 		</div>
 	</div>
 
-	<% @users.each do |user| %>
+	<% @users_sorted.each do |user| %>
 	
 	<div class="row">
 		<div class="span3">
@@ -47,7 +47,7 @@
 						<th class="lead">Sum</th>
 						<th class="lead">&nbsp;</th>
 						<th class="lead"><%= user.points %></th>
-					</tr>					
+					</tr>
 				</tbody>
 			</table>
 		</div>

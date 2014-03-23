@@ -6,11 +6,11 @@ class BetsController < ApplicationController
   # GET /bets
   # GET /bets.json
   def index
-
     if is_long_time_since_update
       update_teams
     end
     @users = User.all
+    puts @users.class 
     for user in @users do
       user.points = 0
       for bet in user.bets do
@@ -22,9 +22,14 @@ class BetsController < ApplicationController
           bet.points = 1
         else
           bet.points = 0
-        end
+        end        
+      end
+      if user.name == 'Robin'
+        #user.points = 3
       end
     end
+    @users_sorted = @users.to_a
+    @users_sorted = @users_sorted.sort_by{|u| -u.points}
   end
   
   def update_teams
