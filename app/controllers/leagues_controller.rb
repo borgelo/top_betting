@@ -4,7 +4,11 @@ class LeaguesController < ApplicationController
   # GET /leagues
   # GET /leagues.json
   def index
-    @leagues = League.all.order(:position)
+    season = 2016
+    if(params[:season])
+      season = params[:season]
+    end
+    @leagues = League.where(seasonStartYear: season).order(:position)
   end
 
   # GET /leagues/1

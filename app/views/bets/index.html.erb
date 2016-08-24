@@ -36,7 +36,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<% user.bets.each do |bet| %>
+				<% user.bets.where('seasonStartYear = ?', @useSeason).each do |bet| %>
 					<tr>
 						<td class="lead"><%= bet.position %>.</td>
 						<td class="lead"><%= bet.league.name %></td>
@@ -54,5 +54,9 @@
 	</div>
 		<% end %>
 		
-		<center><%= link_to 'Tabell', leagues_path %></center><br/>&nbsp;
+	<div style="text-align:center"><%= link_to 'Tabell', leagues_path %></div>
+	<div style="text-align:center"><%= link_to 'Tabell 2014', leagues_path(:season => "2014") %></div>
+
+
+
 

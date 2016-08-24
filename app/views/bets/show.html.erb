@@ -15,5 +15,10 @@
   <%= @bet.position %>
 </p>
 
+<p>
+    <strong>Season:</strong>
+    <%= @bet.seasonStartYear %>
+</p>
+
 <%= link_to 'Edit', edit_bet_path(@bet) %> |
 <%= link_to 'Back', bets_path %>

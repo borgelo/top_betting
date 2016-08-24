@@ -3,7 +3,9 @@
 		</div>
 		<div class="span2">
 			<h4><%= link_to 'Resultat', bets_path %></h4>
-			<h4>Tabell</h4>
+			<h4><%= link_to 'Tabell', leagues_path %></h4>
+			<h4><%= link_to 'Resultat 2014', bets_path(:season => "2014") %></h4>
+			<h4><%= link_to 'Tabell 2014', leagues_path(:season => "2014") %></h4>
 		</div>
 		<div class="span6 well lead">
 			<table class="table table-condensed table-hover">

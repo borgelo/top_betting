@@ -3,25 +3,40 @@ require 'open-uri'
 class BetsController < ApplicationController
   before_action :set_bet, only: [:show, :edit, :update, :destroy]
 
+  @@currentSeasonStartYear = 2016
+
   # GET /bets
   # GET /bets.json
   def index
-    if is_long_time_since_update
-      #update_teams
+    season = params[:season]
+    @useSeason = @@currentSeasonStartYear
+    if season
+      @useSeason = season.to_i
+    end
+    puts "current season: " + @@currentSeasonStartYear.to_s
+    puts "use season: " + @useSeason.to_s
+    if (is_long_time_since_update)
+      update_teams
+    else
+      puts "Not updating teams"
     end
     @users = User.all
     for user in @users do
       user.points = 0
       for bet in user.bets do
-        if (bet.position == bet.league.position)
-          user.points = user.points += 3
-          bet.points = 3
-        elsif (bet.league.isTop(6))
-          user.points += 1
-          bet.points = 1
-        else
-          bet.points = 0
-        end        
+        puts "Bet star: " + bet.seasonStartYear.to_s
+        if (bet.seasonStartYear == @useSeason)
+          puts "match"
+          if (bet.position == bet.league.position)
+            user.points = user.points += 3
+            bet.points = 3
+          elsif (bet.league.isTop(6))
+            user.points += 1
+            bet.points = 1
+          else
+            bet.points = 0
+          end
+        end
       end
     end
     @users_sorted = @users.to_a
@@ -29,24 +44,29 @@ class BetsController < ApplicationController
   end
   
   def update_teams
+    puts "Updating teams"
     doc = Nokogiri::XML(open('http://www.footballwebpages.co.uk/league.xml?comp=1'))  
     #doc = Nokogiri::XML(open('league.xml'))
     doc.xpath('//team').each do |team|
       name = team.at_xpath('name').content
-      @league = League.find_by_name(name)
-      
-      if(@league)
-        @league.position = team.at_xpath('position').content
-        @league.played = team.at_xpath('played').content
-        @league.win = team.at_xpath('won').content
-        @league.drawn = team.at_xpath('drawn').content
-        @league.lost = team.at_xpath('lost').content
-        @league.for = team.at_xpath('for').content
-        @league.against = team.at_xpath('against').content
-        @league.goal_difference = team.at_xpath('goalDifference').content
-        @league.points = team.at_xpath('points').content
-        @league.save
+      puts name
+      @league = League.where('name = ? AND seasonStartYear = ?', name, @@currentSeasonStartYear ).first()
+
+      if (!@league)
+        @league = League.new
       end
+      @league.name = name
+      @league.position = team.at_xpath('position').content
+      @league.played = team.at_xpath('played').content
+      @league.win = team.at_xpath('won').content
+      @league.drawn = team.at_xpath('drawn').content
+      @league.lost = team.at_xpath('lost').content
+      @league.for = team.at_xpath('for').content
+      @league.against = team.at_xpath('against').content
+      @league.goal_difference = team.at_xpath('goalDifference').content
+      @league.points = team.at_xpath('points').content
+      @league.seasonStartYear = @@currentSeasonStartYear
+      @league.save
     end
   end
     
@@ -59,6 +79,7 @@ class BetsController < ApplicationController
   # GET /bets/new
   def new
     @bet = Bet.new
+    @currentSeasonStartYear = @@currentSeasonStartYear
   end
 
   # GET /bets/1/edit
@@ -113,7 +134,7 @@ class BetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bet_params
-      params.require(:bet).permit(:user_id, :league_id, :position)
+      params.require(:bet).permit(:user_id, :league_id, :position, :seasonStartYear)
     end
     
     def is_long_time_since_update
