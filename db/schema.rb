@@ -11,21 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815213815) do
+ActiveRecord::Schema.define(version: 20160825172247) do
 
-  create_table "bets", force: true do |t|
+  create_table "Bets", force: true do |t|
     t.integer  "user_id"
     t.integer  "league_id"
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "seasonStartYear"
+    t.integer  "seasonstartyear"
   end
 
-  add_index "bets", ["league_id"], name: "index_bets_on_league_id"
-  add_index "bets", ["user_id"], name: "index_bets_on_user_id"
+  add_index "Bets", ["league_id"], name: "index_bets_on_league_id"
+  add_index "Bets", ["user_id"], name: "index_bets_on_user_id"
 
-  create_table "leagues", force: true do |t|
+  create_table "Leagues", force: true do |t|
     t.string   "name"
     t.integer  "position"
     t.datetime "created_at"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20160815213815) do
     t.integer  "goal_difference"
     t.integer  "points"
     t.integer  "for"
-    t.integer  "seasonStartYear"
+    t.integer  "seasonstartyear"
   end
 
   create_table "users", force: true do |t|
