@@ -8,7 +8,7 @@ class LeaguesController < ApplicationController
     if(params[:season])
       season = params[:season]
     end
-    @leagues = League.where(seasonStartYear: season).order(:position)
+    @leagues = League.where(seasonstartyear: season).order(:position)
   end
 
   # GET /leagues/1

@@ -24,8 +24,8 @@ class BetsController < ApplicationController
     for user in @users do
       user.points = 0
       for bet in user.bets do
-        puts "Bet star: " + bet.seasonStartYear.to_s
-        if (bet.seasonStartYear == @useSeason)
+        puts "Bet star: " + bet.seasonstartyear.to_s
+        if (bet.seasonstartyear == @useSeason)
           puts "match"
           if (bet.position == bet.league.position)
             user.points = user.points += 3
@@ -50,7 +50,7 @@ class BetsController < ApplicationController
     doc.xpath('//team').each do |team|
       name = team.at_xpath('name').content
       puts name
-      @league = League.where('name = ? AND seasonStartYear = ?', name, @@currentSeasonStartYear ).first()
+      @league = League.where('name = ? AND seasonstartyear = ?', name, @@currentSeasonStartYear ).first()
 
       if (!@league)
         @league = League.new
@@ -65,7 +65,7 @@ class BetsController < ApplicationController
       @league.against = team.at_xpath('against').content
       @league.goal_difference = team.at_xpath('goalDifference').content
       @league.points = team.at_xpath('points').content
-      @league.seasonStartYear = @@currentSeasonStartYear
+      @league.seasonstartyear = @@currentSeasonStartYear
       @league.save
     end
   end
@@ -134,7 +134,7 @@ class BetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bet_params
-      params.require(:bet).permit(:user_id, :league_id, :position, :seasonStartYear)
+      params.require(:bet).permit(:user_id, :league_id, :position, :seasonstartyear)
     end
     
     def is_long_time_since_update
