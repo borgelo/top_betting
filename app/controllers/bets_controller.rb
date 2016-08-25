@@ -22,11 +22,11 @@ class BetsController < ApplicationController
     end
     @users = User.all
     for user in @users do
+      user.hasBets = false
       user.points = 0
       for bet in user.bets do
-        puts "Bet star: " + bet.seasonstartyear.to_s
         if (bet.seasonstartyear == @useSeason)
-          puts "match"
+          user.hasBets = true
           if (bet.position == bet.league.position)
             user.points = user.points += 3
             bet.points = 3

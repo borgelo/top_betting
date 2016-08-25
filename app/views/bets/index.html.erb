@@ -25,8 +25,10 @@
 		</div>
 	</div>
 
-	<% @users_sorted.each do |user| %>
-	
+	<% @users_sorted.each do |user|
+		if user.hasBets
+	%>
+
 	<div class="row">
 		<div class="span3">
 		</div>
@@ -38,13 +40,16 @@
 					</tr>
 				</thead>
 				<tbody>
-				<% user.bets.where('seasonstartyear = ?', @useSeason).each do |bet| %>
+				<% user.bets.each do |bet|
+					if (bet.seasonstartyear == @useSeason)
+				%>
 					<tr>
 						<td class="lead"><%= bet.position %>.</td>
 						<td class="lead"><%= bet.league.name %></td>
 						<td class="lead"><%= bet.points %></td>
 					</tr>
-				<% end %>
+				<% end
+				   end %>
 					<tr>
 						<th class="lead">Sum</th>
 						<th class="lead">&nbsp;</th>
@@ -54,7 +59,11 @@
 			</table>
 		</div>
 	</div>
-		<% end %>
+
+		<%
+		   end
+		   end
+		%>
 		
 	<div style="text-align:center"><%= link_to 'Tabell', leagues_path %></div>
 	<div style="text-align:center"><%= link_to 'Tabell 2014', leagues_path(:season => "2014") %></div>
