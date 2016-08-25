@@ -17,7 +17,7 @@
   </div>
   <div class="field">
 	<%= f.label :league_id %><br>
-	<%= collection_select(:bet, :league_id, League.where('id > ? AND seasonStartYear = ?', 0, @currentSeasonStartYear).order('name ASC').load, :id, :name, {:class => 'selectpicker', :include_blank => '-- Velg lag --'}) %>
+	<%= collection_select(:bet, :league_id, League.where('id > ? AND seasonstartyear = ?', 0, @currentSeasonStartYear).order('name ASC').load, :id, :name, {:class => 'selectpicker', :include_blank => '-- Velg lag --'}) %>
 
   </div>
   <div class="field">
@@ -26,8 +26,8 @@
   </div>
   <div>
       <div class="field">
-          <%= f.label :seasonStartYear %><br>
-          <%= f.number_field :seasonStartYear, value: @currentSeasonStartYear %>
+          <%= f.label :seasonstartyear %><br>
+          <%= f.number_field :seasonstartyear, value: @currentSeasonStartYear %>
       </div>
   </div>
   <div class="actions">

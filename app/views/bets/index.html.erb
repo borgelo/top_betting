@@ -38,7 +38,7 @@
 					</tr>
 				</thead>
 				<tbody>
-				<% user.bets.where('seasonStartYear = ?', @useSeason).each do |bet| %>
+				<% user.bets.where('seasonstartyear = ?', @useSeason).each do |bet| %>
 					<tr>
 						<td class="lead"><%= bet.position %>.</td>
 						<td class="lead"><%= bet.league.name %></td>
