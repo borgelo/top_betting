@@ -16,7 +16,8 @@ class BetsController < ApplicationController
     puts "current season: " + @@currentSeasonStartYear.to_s
     puts "use season: " + @useSeason.to_s
     if (is_long_time_since_update)
-      update_teams
+      #un comment to start new season.
+      #update_teams
     else
       puts "Not updating teams"
     end
