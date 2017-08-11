@@ -14,7 +14,9 @@
 				<thead>
 					<tr><th>Navn</th><th>&nbsp;</th><th>Poeng</th></thr>
 				</thead>
-				<% @users_sorted.each do |user| %>
+				<% @users_sorted.each do |user|
+					if user.hasBets
+				%>
 					<tbody>
 						<tr>
 							<td class="lead"><%= user.name %></td>
@@ -22,7 +24,8 @@
 							<td class="lead"><%= user.points %></td>
 						</tr>
 					</tbody>
-				<% end %>
+				<% end
+				 end%>
 			</table>
 		</div>
 	</div>
@@ -68,6 +71,7 @@
 		%>
 		
 	<div style="text-align:center"><%= link_to 'Tabell', leagues_path %></div>
+	<div style="text-align:center"><%= link_to 'Tabell 2016', leagues_path(:season => "2016") %></div>
 	<div style="text-align:center"><%= link_to 'Tabell 2014', leagues_path(:season => "2014") %></div>
 
 
