@@ -3,7 +3,7 @@ require 'open-uri'
 class BetsController < ApplicationController
   before_action :set_bet, only: [:show, :edit, :update, :destroy]
 
-  @@currentSeasonStartYear = 2016
+  @@currentSeasonStartYear = 2017
 
   # GET /bets
   # GET /bets.json
@@ -17,7 +17,7 @@ class BetsController < ApplicationController
     puts "use season: " + @useSeason.to_s
     if (is_long_time_since_update)
       #un comment to start new season.
-      #update_teams
+      update_teams
     else
       puts "Not updating teams"
     end
@@ -46,7 +46,7 @@ class BetsController < ApplicationController
   
   def update_teams
     puts "Updating teams"
-    doc = Nokogiri::XML(open('http://www.footballwebpages.co.uk/league.xml?comp=1'))  
+    doc = Nokogiri::XML(open('http://www.footballwebpages.co.uk/league.xml?comp=1'))
     #doc = Nokogiri::XML(open('league.xml'))
     doc.xpath('//team').each do |team|
       name = team.at_xpath('name').content
