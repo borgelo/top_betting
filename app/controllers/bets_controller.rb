@@ -13,8 +13,7 @@ class BetsController < ApplicationController
     if season
       @useSeason = season.to_i
     end
-    puts "current season: " + @@currentSeasonStartYear.to_s
-    puts "use season: " + @useSeason.to_s
+
     if (is_long_time_since_update)
       #un comment to start new season.
       update_teams
@@ -46,8 +45,8 @@ class BetsController < ApplicationController
   
   def update_teams
     puts "Updating teams"
-    doc = Nokogiri::XML(open('https://www.footballwebpages.co.uk/league.xml?comp=1'))
-    #doc = Nokogiri::XML(open('league.xml'))
+    #doc = Nokogiri::XML(open('https://www.footballwebpages.co.uk/league.xml?comp=1'))
+    doc = Nokogiri::XML(open('league.xml'))
     doc.xpath('//team').each do |team|
       name = team.at_xpath('name').content
       puts name
@@ -68,6 +67,28 @@ class BetsController < ApplicationController
       @league.points = team.at_xpath('points').content
       @league.seasonstartyear = @@currentSeasonStartYear
       @league.save
+
+      @leagueround = Leagueround.where('name = ? AND seasonstartyear = ? AND played = ?',
+                                       name, @@currentSeasonStartYear, @league.played)
+
+
+      if (@leagueround.count == 0)
+        puts 'creating new round'
+        @leagueround = Leagueround.new
+        @leagueround.name = name
+        @leagueround.position = team.at_xpath('position').content
+        @leagueround.played = team.at_xpath('played').content
+        @leagueround.win = team.at_xpath('won').content
+        @leagueround.drawn = team.at_xpath('drawn').content
+        @leagueround.lost = team.at_xpath('lost').content
+        @leagueround.for = team.at_xpath('for').content
+        @leagueround.against = team.at_xpath('against').content
+        @leagueround.goal_difference = team.at_xpath('goalDifference').content
+        @leagueround.points = team.at_xpath('points').content
+        @leagueround.seasonstartyear = @@currentSeasonStartYear
+        @leagueround.save
+      end
+
     end
   end
     
@@ -143,5 +164,6 @@ class BetsController < ApplicationController
       latest_update = League.first.updated_at
       distance_in_hour = ((now.to_i - latest_update.to_i).abs) / 3600
       distance_in_hour > 1
+      true
     end
 end

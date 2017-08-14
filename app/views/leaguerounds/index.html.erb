@@ -1,0 +1,66 @@
+<%
+   currentPlayed = 0
+   isFirst = true
+   @leaguerounds.each do |leagueround|
+        if leagueround.played != currentPlayed
+            currentPlayed = leagueround.played
+            if !isFirst
+%>
+
+                </tbody>
+                </table>
+                </div>
+                </div>
+                <br>
+            <%
+               end
+               isFirst = false
+               %>
+
+<div class="row">
+    <div class="span1">
+    </div>
+
+    <div class="span6 well lead">
+        <table class="table table-condensed table-hover">
+            <thead>
+            <tr>
+                <th></th>
+                <th align="left">Runde <%= leagueround.played %></th>
+                <th>Arne</th>
+                <th>Børge</th>
+                <th>Rune</th>
+                <th>W</th>
+                <th>D</th>
+                <th>L</th>
+                <th>F</th>
+                <th>A</th>
+                <th>GD</th>
+                <th>Pts</th>
+            </tr>
+            </thead>
+            <tbody>
+
+             <% end %>
+                <tr>
+                    <td><%= leagueround.position %></td>
+                    <td><%= leagueround.name %></td>
+                    <td><%= leagueround.userpoints["Arne"] %></td>
+                    <td><%= leagueround.userpoints["Børge"] %></td>
+                    <td><%= leagueround.userpoints["Rune"] %></td>
+                    <td><%= leagueround.win %></td>
+                    <td><%= leagueround.drawn %></td>
+                    <td><%= leagueround.lost %></td>
+                    <td><%= leagueround.for %></td>
+                    <td><%= leagueround.against %></td>
+                    <td><%= leagueround.goal_difference %></td>
+                    <td><%= leagueround.points %></td>
+                </tr>
+
+
+<% end %>
+</tbody>
+</table>
+</div>
+</div>
+<br>

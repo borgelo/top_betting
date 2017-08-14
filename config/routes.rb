@@ -1,4 +1,6 @@
 TopBetting::Application.routes.draw do
+  resources :leaguerounds
+
   resources :bets
 
   resources :leagues

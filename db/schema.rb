@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825172247) do
+ActiveRecord::Schema.define(version: 20170813214807) do
 
   create_table "Bets", force: true do |t|
     t.integer  "user_id"
@@ -39,6 +39,22 @@ ActiveRecord::Schema.define(version: 20160825172247) do
     t.integer  "points"
     t.integer  "for"
     t.integer  "seasonstartyear"
+  end
+
+  create_table "leaguerounds", force: true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.integer  "played"
+    t.integer  "win"
+    t.integer  "drawn"
+    t.integer  "lost"
+    t.integer  "against"
+    t.integer  "goal_difference"
+    t.integer  "points"
+    t.integer  "for"
+    t.integer  "seasonstartyear"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
