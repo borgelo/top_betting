@@ -45,8 +45,8 @@ class BetsController < ApplicationController
   
   def update_teams
     puts "Updating teams"
-    #doc = Nokogiri::XML(open('https://www.footballwebpages.co.uk/league.xml?comp=1'))
-    doc = Nokogiri::XML(open('league.xml'))
+    doc = Nokogiri::XML(open('https://www.footballwebpages.co.uk/league.xml?comp=1'))
+    #doc = Nokogiri::XML(open('league.xml'))
     doc.xpath('//team').each do |team|
       name = team.at_xpath('name').content
       puts name
