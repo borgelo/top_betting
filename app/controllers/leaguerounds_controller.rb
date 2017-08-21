@@ -5,30 +5,39 @@ class LeagueroundsController < ApplicationController
   # GET /leaguerounds.json
   def index
     season = 2017
+    @rounds = Array.new
+    @round_points = Array.new
+    table = Array.new(6)
+
     if(params[:season])
       season = params[:season]
     end
     @leaguerounds = Leagueround.where('seasonstartyear = ? AND position < ?',  season, 7).order(played: :desc).order(:position)
-    @leaguerounds.each do |round|
-      @users = User.all
+    usersum_round = {}
+    @leaguerounds.each do |team|
+      bets = Bet.where('seasonStartYear = ? AND position = ?', season, team.position)
       userpoints_round = {}
-      for user in @users do
-        user.hasBets = false
-        user.points = 0
-        for bet in user.bets do
-          if (bet.seasonstartyear == season)
-            user.hasBets = true
-            if (bet.position == round.position && bet.league.name == round.name)
-              userpoints_round[user.name] = 1
-            else
-              userpoints_round[user.name] = 0
+      for bet in bets do
+          if (bet.league.name == team.name)
+            userpoints_round[bet.user.name] = 1
+            if usersum_round[bet.user.name] == nil
+              usersum_round[bet.user.name] = 0
             end
+            usersum_round[bet.user.name] = usersum_round[bet.user.name] + 1
+          else
+            userpoints_round[bet.user.name] = 0
           end
-        end
+          team.userpoints = userpoints_round
+          table[team.position-1] = team
       end
-      round.userpoints = userpoints_round
+      if team.position == 6
+        @round_points[team.played-1] = usersum_round
+        @rounds[team.played-1] = table
+        usersum_round = {}
+      end
     end
-    end
+  end
+
 
   # GET /leaguerounds/1
   # GET /leaguerounds/1.json

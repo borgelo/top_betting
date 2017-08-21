@@ -14,6 +14,7 @@ gem 'nokogiri'
 group :development, :test do
   gem 'sqlite3'
   gem 'database_cleaner', '0.7.0'
+  gem 'rb-readline'
 end
 
 group :production do
