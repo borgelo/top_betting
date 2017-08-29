@@ -85,4 +85,12 @@
 
 <%
    end
-end %>
+end
+
+@allrounds.each do |lag|
+
+%>
+<div>
+    <%= lag.position %>| <%= lag.name %> | <%= lag.played %>
+</div>
+<% end %>
