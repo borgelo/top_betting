@@ -19,10 +19,9 @@ class LeagueroundsController < ApplicationController
     lastPlayed = 0
     @leaguerounds.each do |team|
       if team.played != lastPlayed
-        pos = 0
+        pos = 1
       end
       lastPlayed = team.played
-      pos = pos + 1
       if pos < 7
         bets = Bet.where('seasonStartYear = ? AND position = ?', season, pos)
         userpoints_round = {}
@@ -43,10 +42,12 @@ class LeagueroundsController < ApplicationController
 
         if pos == 6
           @round_points[team.played-1] = usersum_round
-          @rounds[team.played-1] = table
+          @rounds[team.played-1] = table.dup
           usersum_round = {}
+          table = Array.new(6)
         end
       end
+      pos = pos + 1
     end
   end
 
