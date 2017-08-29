@@ -17,8 +17,6 @@ class BetsController < ApplicationController
     if (is_long_time_since_update)
       #un comment to start new season.
       update_teams
-    else
-      puts "Not updating teams"
     end
     @users = User.all
     for user in @users do
@@ -44,7 +42,6 @@ class BetsController < ApplicationController
   end
   
   def update_teams
-    puts "Updating teams"
     doc = Nokogiri::XML(open('https://www.footballwebpages.co.uk/league.xml?comp=1'))
     #doc = Nokogiri::XML(open('league.xml'))
     doc.xpath('//team').each do |team|
