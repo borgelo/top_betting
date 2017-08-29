@@ -1,7 +1,9 @@
 <%
    currentPlayed = 0
 
-   for roundNumber in 0..5
+   roundNumber = 38
+   until roundNumber == 0 do
+     roundNumber = roundNumber - 1
         table = @rounds[roundNumber]
         if table != nil
 
@@ -15,7 +17,6 @@
         <table class="table table-condensed table-hover">
             <thead>
             <tr>
-                <th></th>
                 <th align="left">Runde <%= roundNumber+1 %></th>
                 <th>Arne </th>
                 <th>Børge </th>
@@ -38,7 +39,6 @@
                     if team != nil
 %>
                     <tr>
-                        <td><%= team.position %></td>
                         <td><%= team.name %></td>
                         <td><%= team.userpoints["Arne"] %></td>
                         <td><%= team.userpoints["Børge"] %></td>
