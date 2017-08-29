@@ -73,7 +73,6 @@ class BetsController < ApplicationController
         puts 'creating new round'
         @leagueround = Leagueround.new
         @leagueround.name = name
-        @leagueround.position = team.at_xpath('position').content
         @leagueround.played = team.at_xpath('played').content
         @leagueround.win = team.at_xpath('won').content
         @leagueround.drawn = team.at_xpath('drawn').content

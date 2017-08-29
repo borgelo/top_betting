@@ -13,10 +13,13 @@ class LeagueroundsController < ApplicationController
     if(params[:season])
       season = params[:season]
     end
-    @leaguerounds = Leagueround.where('seasonstartyear = ? AND position < ?',  season, 7).order(played: :desc).order(:position)
+    @leaguerounds = Leagueround.where('seasonstartyear = ? ',  season).order(played: :desc).order(points: :desc)
     usersum_round = {}
+    pos = 0
     @leaguerounds.each do |team|
-      bets = Bet.where('seasonStartYear = ? AND position = ?', season, team.position)
+      pos = pos + 1
+
+      bets = Bet.where('seasonStartYear = ? AND position = ?', season, pos)
       userpoints_round = {}
       for bet in bets do
           if (bet.league.name == team.name)
@@ -31,7 +34,7 @@ class LeagueroundsController < ApplicationController
           team.userpoints = userpoints_round
           table[team.position-1] = team
       end
-      if team.position == 6
+      if pos == 6
         @round_points[team.played-1] = usersum_round
         @rounds[team.played-1] = table
         usersum_round = {}
