@@ -16,28 +16,36 @@ class LeagueroundsController < ApplicationController
     @leaguerounds = Leagueround.where('seasonstartyear = ? ',  season).order(played: :desc).order(points: :desc)
     usersum_round = {}
     pos = 0
+    lastPlayed = 0
     @leaguerounds.each do |team|
-      pos = pos + 1
-
-      bets = Bet.where('seasonStartYear = ? AND position = ?', season, pos)
-      userpoints_round = {}
-      for bet in bets do
-          if (bet.league.name == team.name)
-            userpoints_round[bet.user.name] = 1
-            if usersum_round[bet.user.name] == nil
-              usersum_round[bet.user.name] = 0
-            end
-            usersum_round[bet.user.name] = usersum_round[bet.user.name] + 1
-          else
-            userpoints_round[bet.user.name] = 0
-          end
-          team.userpoints = userpoints_round
-          table[team.position-1] = team
+      if team.played != lastPlayed
+        pos = 0
       end
-      if pos == 6
-        @round_points[team.played-1] = usersum_round
-        @rounds[team.played-1] = table
-        usersum_round = {}
+      lastPlayed = team.played
+      pos = pos + 1
+      if pos < 7
+        bets = Bet.where('seasonStartYear = ? AND position = ?', season, pos)
+        userpoints_round = {}
+
+        for bet in bets do
+            if (bet.league.name == team.name)
+              userpoints_round[bet.user.name] = 1
+              if usersum_round[bet.user.name] == nil
+                usersum_round[bet.user.name] = 0
+              end
+              usersum_round[bet.user.name] = usersum_round[bet.user.name] + 1
+            else
+              userpoints_round[bet.user.name] = 0
+            end
+            team.userpoints = userpoints_round
+            table[team.position-1] = team
+        end
+
+        if pos == 6
+          @round_points[team.played-1] = usersum_round
+          @rounds[team.played-1] = table
+          usersum_round = {}
+        end
       end
     end
   end
