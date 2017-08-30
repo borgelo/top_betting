@@ -38,7 +38,7 @@ class LeagueroundsController < ApplicationController
               userpoints_round[bet.user.name] = 0
             end
             team.userpoints = userpoints_round
-            table[team.position-1] = team
+            table[pos - 1] = team
         end
 
         if pos == 6
