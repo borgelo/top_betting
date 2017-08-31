@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head class="navbar navbar-fixed-top navbar-inverse">
   <title>TopBetting</title>
+
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <link data-turbolinks-track="true" href="/assets/cusom.css?body=1" media="all" rel="stylesheet" />
   <%= csrf_meta_tags %>
+
 </head>
 <body>
+<%= render 'layouts/header' %>
 
+<div class="container">
+    <br/><br/>
 <%= yield %>
-
+</div>
 </body>
 </html>

@@ -35,12 +35,27 @@
             for i in 0..6
                 team = table[i]
                 if team != nil
+
+                    pointsArne = 0
+                    pointsBorge = 0
+                    pointsRune = 0
+
+                    if team.userpoints["Arne"]
+                        pointsArne = team.userpoints["Arne"]
+                    end
+                    if team.userpoints["Borge"]
+                      pointsArne = team.userpoints["Borge"]
+                    end
+                    if team.userpoints["Rune"]
+                      pointsArne = team.userpoints["Arne"]
+                    end
+
 %>
                 <tr>
                     <td><%= team.name %></td>
-                    <td><%= team.userpoints["Arne"] %></td>
-                    <td><%= team.userpoints["Børge"] %></td>
-                    <td><%= team.userpoints["Rune"] %></td>
+                    <td><%= pointsArne %></td>
+                    <td><%= pointsBorge %></td>
+                    <td><%= pointsRune %></td>
 
                     <td><%= team.win %></td>
                     <td><%= team.drawn %></td>
