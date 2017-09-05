@@ -46,7 +46,6 @@ class BetsController < ApplicationController
     #doc = Nokogiri::XML(open('league.xml'))
     doc.xpath('//team').each do |team|
       name = team.at_xpath('name').content
-      puts name
       @league = League.where('name = ? AND seasonstartyear = ?', name, @@currentSeasonStartYear ).first()
 
       if (!@league)
@@ -70,7 +69,6 @@ class BetsController < ApplicationController
 
 
       if (@leagueround.count == 0)
-        puts 'creating new round'
         @leagueround = Leagueround.new
         @leagueround.name = name
         @leagueround.played = team.at_xpath('played').content
