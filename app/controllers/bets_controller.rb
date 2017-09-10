@@ -29,13 +29,13 @@ class BetsController < ApplicationController
         if (bet.seasonstartyear == @useSeason)
           user.hasBets = true
           if (bet.position == bet.league.position)
-            user.points += 15
-            user.total_points += 15
-            bet.points = 15
+            user.points += 30
+            user.total_points += 30
+            bet.points = 30
           elsif (bet.league.isTop(6))
-            user.points += 5
-            user.total_points += 5
-            bet.points = 5
+            user.points += 10
+            user.total_points += 10
+            bet.points = 10
           else
             bet.points = 0
           end
