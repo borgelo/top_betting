@@ -43,35 +43,10 @@ class BetsController < ApplicationController
       end
     end
     @users_sorted = @users.to_a
-    @users_sorted = @users_sorted.sort_by{|u| -u.points}
+    @users_sorted = @users_sorted.sort_by{|u| -u.total_points}
   end
 
-  def get_round_points(user, season)
-    user_sum = 0
 
-    @leaguerounds = Leagueround.where('seasonstartyear = ? ',  season).
-        order(played: :desc, points: :desc, goal_difference: :desc)
-    pos = 0
-    lastPlayed = 0
-    @leaguerounds.each do |team|
-      if team.played != lastPlayed
-        pos = 1
-      end
-      lastPlayed = team.played
-      if pos < 7
-        bets = Bet.where('seasonStartYear = ? AND position = ?', season, pos)
-
-
-        for bet in user.bets do
-          if (bet.seasonstartyear == season && bet.position == pos && bet.league.name == team.name)
-            user_sum += 1
-          end
-        end
-      end
-      pos = pos + 1
-    end
-    user_sum
-  end
   
   def update_teams
     doc = Nokogiri::XML(open('https://www.footballwebpages.co.uk/league.xml?comp=1'))
@@ -178,6 +153,33 @@ class BetsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_bet
       @bet = Bet.find(params[:id])
+    end
+
+    def get_round_points(user, season)
+      user_sum = 0
+
+      @leaguerounds = Leagueround.where('seasonstartyear = ? ',  season).
+          order(played: :desc, points: :desc, goal_difference: :desc)
+      pos = 0
+      lastPlayed = 0
+      @leaguerounds.each do |team|
+        if team.played != lastPlayed
+          pos = 1
+        end
+        lastPlayed = team.played
+        if pos < 7
+          bets = Bet.where('seasonStartYear = ? AND position = ?', season, pos)
+
+
+          for bet in user.bets do
+            if (bet.seasonstartyear == season && bet.position == pos && bet.league.name == team.name)
+              user_sum += 1
+            end
+          end
+        end
+        pos = pos + 1
+      end
+      user_sum
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
