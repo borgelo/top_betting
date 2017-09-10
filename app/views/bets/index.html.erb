@@ -5,7 +5,7 @@
 		<div class="span6 well lead">
 			<table class="table table-condensed table-hover">
 				<thead>
-					<tr><th>Navn</th><th>&nbsp;</th><th>Poeng</th></thr>
+					<tr><th>Navn</th><th>&nbsp;</th><th>Poeng plassering</th><th>Poeng runde</th><th>Sum</th></thr>
 				</thead>
 				<% @users_sorted.each do |user|
 					if user.hasBets
@@ -15,6 +15,8 @@
 							<td class="lead"><%= user.name %></td>
 							<td>&nbsp;</td>
 							<td class="lead"><%= user.points %></td>
+							<td class="lead"><%= user.round_points %></td>
+							<td class="lead"><%= user.total_points %></td>
 						</tr>
 					</tbody>
 				<% end

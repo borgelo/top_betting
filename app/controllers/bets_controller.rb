@@ -22,15 +22,20 @@ class BetsController < ApplicationController
     for user in @users do
       user.hasBets = false
       user.points = 0
+      user.round_points = get_round_points(user, @useSeason)
+      user.total_points = user.round_points
+
       for bet in user.bets do
         if (bet.seasonstartyear == @useSeason)
           user.hasBets = true
           if (bet.position == bet.league.position)
-            user.points = user.points += 3
-            bet.points = 3
+            user.points += 15
+            user.total_points += 15
+            bet.points = 15
           elsif (bet.league.isTop(6))
-            user.points += 1
-            bet.points = 1
+            user.points += 5
+            user.total_points += 5
+            bet.points = 5
           else
             bet.points = 0
           end
@@ -39,6 +44,33 @@ class BetsController < ApplicationController
     end
     @users_sorted = @users.to_a
     @users_sorted = @users_sorted.sort_by{|u| -u.points}
+  end
+
+  def get_round_points(user, season)
+    user_sum = 0
+
+    @leaguerounds = Leagueround.where('seasonstartyear = ? ',  season).
+        order(played: :desc, points: :desc, goal_difference: :desc)
+    pos = 0
+    lastPlayed = 0
+    @leaguerounds.each do |team|
+      if team.played != lastPlayed
+        pos = 1
+      end
+      lastPlayed = team.played
+      if pos < 7
+        bets = Bet.where('seasonStartYear = ? AND position = ?', season, pos)
+
+
+        for bet in user.bets do
+          if (bet.seasonstartyear == season && bet.position == pos && bet.league.name == team.name)
+            user_sum += 1
+          end
+        end
+      end
+      pos = pos + 1
+    end
+    user_sum
   end
   
   def update_teams

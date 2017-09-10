@@ -28,11 +28,11 @@ class LeagueroundsController < ApplicationController
         userpoints_round = {}
 
         for bet in bets do
+          if usersum_round[bet.user.name] == nil
+            usersum_round[bet.user.name] = 0
+          end
             if (bet.league.name == team.name)
               userpoints_round[bet.user.name] = 1
-              if usersum_round[bet.user.name] == nil
-                usersum_round[bet.user.name] = 0
-              end
               usersum_round[bet.user.name] = usersum_round[bet.user.name] + 1
             else
               userpoints_round[bet.user.name] = 0
