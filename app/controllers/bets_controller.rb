@@ -3,7 +3,7 @@ require 'open-uri'
 class BetsController < ApplicationController
   before_action :set_bet, only: [:show, :edit, :update, :destroy]
 
-  @@currentSeasonStartYear = 2017
+  @@currentSeasonStartYear = 2018
 
   # GET /bets
   # GET /bets.json
