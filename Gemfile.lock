@@ -74,7 +74,7 @@ GEM
     multi_json (1.13.1)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
-    pg (1.0.0)
+    pg (0.21.0)
     rack (1.6.10)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -155,7 +155,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   nokogiri
-  pg
+  pg (~> 0.18)
   rails (= 4.2.8)
   rails_12factor (= 0.0.2)
   rb-readline
