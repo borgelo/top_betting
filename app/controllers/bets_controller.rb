@@ -16,7 +16,7 @@ class BetsController < ApplicationController
 
     if (is_long_time_since_update)
       #un comment to start new season.
-      update_teams
+      #update_teams
     end
     @users = User.all
     for user in @users do
