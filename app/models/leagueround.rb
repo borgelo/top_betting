@@ -31,12 +31,15 @@ class Leagueround < ActiveRecord::Base
       @league.save
 
       @leagueround = Leagueround.where('name = ? AND seasonstartyear = ? AND played = ?',
-                                       name, @@currentSeasonStartYear, @league.played)
+                                       name, @@currentSeasonStartYear, @league.played).first()
 
 
-      if (@leagueround.count == 0)
+      if (!@leagueround)
         @leagueround = Leagueround.new
         @leagueround.name = name
+        @leagueround.seasonstartyear = @@currentSeasonStartYear
+      end
+
         @leagueround.played = team.at_xpath('played').content
         @leagueround.win = team.at_xpath('won').content
         @leagueround.drawn = team.at_xpath('drawn').content
@@ -45,10 +48,7 @@ class Leagueround < ActiveRecord::Base
         @leagueround.against = team.at_xpath('against').content
         @leagueround.goal_difference = team.at_xpath('goalDifference').content
         @leagueround.points = team.at_xpath('points').content
-        @leagueround.seasonstartyear = @@currentSeasonStartYear
         @leagueround.save
-      end
-
     end
   end
 
