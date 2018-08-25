@@ -14,7 +14,7 @@ class LeagueroundsController < ApplicationController
       season = params[:season]
     end
     @leaguerounds = Leagueround.where('seasonstartyear = ? ',  season).
-        order(played: :desc, points: :desc, goal_difference: :desc)
+        order(played: :desc, points: :desc, goal_difference: :desc, for: :desc, )
     usersum_round = {}
     pos = 0
     lastPlayed = 0
