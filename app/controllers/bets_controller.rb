@@ -15,7 +15,7 @@ class BetsController < ApplicationController
     end
 
     if (is_long_time_since_update)
-      #un comment to start new season.
+      #un comment to start new season. Is not in us any more. Handled by scheduler
       #update_teams
     end
     @users = User.all
@@ -159,7 +159,7 @@ class BetsController < ApplicationController
       user_sum = 0
 
       @leaguerounds = Leagueround.where('seasonstartyear = ? ',  season).
-          order(played: :desc, points: :desc, goal_difference: :desc)
+          order(played: :desc, points: :desc, goal_difference: :desc, for: :desc)
       pos = 0
       lastPlayed = 0
       @leaguerounds.each do |team|
