@@ -17,7 +17,7 @@ class LeagueroundsController < ApplicationController
         order(played: :desc, points: :desc, goal_difference: :desc, for: :desc, )
     usersum_round = {}
     pos = 0
-    lastPlayed = 0
+    lastPlayed = -1
     @leaguerounds.each do |team|
       if team.played != lastPlayed
         pos = 1
