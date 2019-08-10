@@ -4,7 +4,7 @@ class LeaguesController < ApplicationController
   # GET /leagues
   # GET /leagues.json
   def index
-    @season = 2018
+    @season = 2019
     if(params[:season])
       @season = params[:season]
     end
