@@ -107,6 +107,7 @@ class BetsController < ApplicationController
 
   # GET /bets/1/edit
   def edit
+    @currentSeasonStartYear = @@currentSeasonStartYear
   end
 
   # POST /bets
