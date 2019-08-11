@@ -32,6 +32,10 @@ a {
   }
 }
 
+a.menu {
+  font-size: 2em;
+}
+
 div {
   &.field, &.actions {
     margin-bottom: 10px;
