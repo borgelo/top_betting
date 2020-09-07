@@ -4,7 +4,7 @@ class Leagueround < ActiveRecord::Base
   attr_accessor :userpoints, :sumpoints
 
   def self.update_rounds
-    @@currentSeasonStartYear = 2019
+    @@currentSeasonStartYear = 2020
 
     puts "Getting data..."
     doc = Nokogiri::XML(open('https://www.footballwebpages.co.uk/league.xml?comp=1'))

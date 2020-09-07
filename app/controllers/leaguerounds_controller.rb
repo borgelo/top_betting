@@ -4,7 +4,7 @@ class LeagueroundsController < ApplicationController
   # GET /leaguerounds
   # GET /leaguerounds.json
   def index
-    season = 2019
+    season = 2020
     @allrounds = Leagueround.all
     @rounds = Array.new
     @round_points = Array.new
